@@ -1,0 +1,108 @@
+{% include 'staffheader.html' %}
+
+ <header id="fh5co-header" class="fh5co-cover" role="banner" style="background-image:url(/static/3.jpg); background-attachment: fixed;height: auto" data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 text-center">
+					<div class="display-t">
+						<div class="display-tc animate-box" data-animate-effect="fadeIn">
+
+<center>
+	<form method="post" enctype="multipart/form-data">
+		{% if data['updater'] %}
+		<h1>UPDATE SLOT</h1>
+		
+		<table class="table" style="width:  700px">
+		
+		<tr>
+			<th>NO OF DAYS</th>
+			<td><input type="number" name="td"  class="form-control" value="{{data['updater'][0]['duration']}}" min="0"></td>
+		</tr>
+		<tr>
+			<th>RATE</th>
+			<td><input type="text" name="rate"  class="form-control" value="{{data['updater'][0]['rate']}}"></td>
+		</tr>
+		
+		<tr>
+			<td colspan="2" align="center"><input type="submit" name="update" value="UPDATE" class="btn btn-primary"></td>
+		</tr>
+	</table>
+				</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+
+		{% else %}
+
+
+	
+		<h1>MANAGE SLOT TO BOOKING</h1>
+
+		<table class="table" style="width:  700px;" rules="none">
+		<tr style="border-bottom-style: hidden">
+			<th>DAYS</th>
+			<td><input type="number" name="td"  class="form-control" min="1"></td>
+		</tr>
+		<tr style="border-bottom-style: hidden">
+			<th>RATE</th>
+			<td><input type="number" name="rate"  class="form-control" min="1"></td>
+		</tr>
+		
+		<tr>
+			<td colspan="2" align="center"><input type="submit" name="submit" value="ADD" class="btn btn-primary"></td>
+		</tr>
+
+
+		</table>
+
+
+                     
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+
+		{% if data['timeslot'] %}
+		<h1 align="center">TIME SLOTS ADDED </h1>
+		<table class="table" width="600px" style="color: black;text-align: center;">
+			<tr>
+				<th>SL.NO</th>
+				<th>NO.OF DAYS</th>
+				<th>AMOUNT</th>
+				<th>STATUS</th>
+				<th>UPDATE</th>
+				<th>ACTIVATE/DEACTIVATE</th>
+		
+			</tr>
+			{% for row in data['timeslot'] %}
+			<tr>
+				<td>{{loop.index}}</td>
+				<td>{{ row['duration'] }} </td>
+				<td>{{ row['rate'] }}</td>
+				<td>{{ row['status'] }}</td>
+		
+				<td><a href="?action=update&id={{ row['slot_id'] }}" class="btn btn-danger" >UPDATE</a></td>
+				{% if row['status']=='active' %}
+				<td><a href="?action=inactive&id={{ row['slot_id'] }}" class="btn btn-warning">DEACTIVE</a></td>
+
+				{% else %}
+				<td><a href="?action=active&id={{ row['slot_id'] }}" class="btn btn-danger" >ACTIVATE</a></td>
+				{% endif %}
+
+			</tr>
+			{% endfor%}
+		</table>
+		{% else %}
+		<h2>NO TIME SLOTS ADDED IN OUR SYSTEM</h2>
+		{% endif %}
+		{% endif %}
+	</form>
+</center>
+{% include 'footer.html' %}

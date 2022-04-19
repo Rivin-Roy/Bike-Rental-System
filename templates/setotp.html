@@ -1,0 +1,62 @@
+{% include 'publicheader.html' %}
+
+ <header id="fh5co-header" class="fh5co-cover" role="banner" style="background-image:url(/static/1.jpg); background-attachment: fixed;height: auto" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center">
+                    <div class="display-t">
+                        <div class="display-tc animate-box" data-animate-effect="fadeIn"> 
+                                <center>
+
+
+		<form method="post">
+	{% if data['chp'] %}
+
+
+	<h1 align="center">CHANGE PASSWORD</h1>
+<table class="table" style="width: 400px">
+<tr>
+	<th>PASSWORD: </th>
+	<td><input type="text" name="p"  class="form-control"></td>
+</tr>
+
+<tr>
+	<th>CONFIRM PASSWORD</th>
+	<td><input type="text" name="cp" class="form-control"></td>
+</tr>
+<input type="text" name="uname" value="{{data['chp']}}" hidden>
+<tr>
+	<td colspan="2" align="center"><input type="submit" name="update" value="UPDATE" class="btn btn-info"></td>
+</tr>
+</table>
+
+
+{% else %}
+<H1>OTP VERIFICATION</H1>
+
+<table class="table" style="width: 500px">
+	<tr>
+		<th>ENTER OTP</th>
+		<td><input type="text" name="otp" class="form-control"></td>
+	</tr>
+	
+	<tr>
+		<td colspan="2" align="center"><input type="submit" name="submit" value="SEND" class="btn btn-primary"></td>
+	</tr>
+</table>
+
+</form>
+{% endif %}
+
+</center>
+                        
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+{% include 'footer.html' %}

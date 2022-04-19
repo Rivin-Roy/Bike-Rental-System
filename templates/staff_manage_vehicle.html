@@ -1,0 +1,123 @@
+{% include 'staffheader.html' %}
+
+ <header id="fh5co-header" class="fh5co-cover" role="banner" style="background-image:url(/static/3.jpg); background-attachment: fixed;height: auto" data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 text-center">
+					<div class="display-t">
+						<div class="display-tc animate-box" data-animate-effect="fadeIn">
+
+<center>
+	<form method="post" enctype="multipart/form-data">
+		{% if data['updater'] %}
+		<h1>UPDATE VEHICLE</h1>
+		
+		<table class="table" style="width:  700px">
+		<tr>
+			<th>VEHICLE</th>
+			<td><input type="text" name="vehicle"  class="form-control" value="{{data['updater'][0]['vehiclename']}}"></td>
+		</tr>
+
+		<tr>
+			<th>VEHICLE NUMBER</th>		
+			 <td><input type="text" name="vno"  class="form-control" pattern="^[A-Z]{2}[ -][0-9]{1,2}(?: [A-Z])?(?: [A-Z]*)? [0-9]{4}$"></td>
+		</tr>
+		<tr>
+			<th>IMAGE</th>
+			<td><input type="file" name="img"  class="form-control" required ></td>
+		</tr>
+			<tr>
+			<th>AMOUNT</th>
+			<td><input type="text" name="amt"  class="form-control" value="{{data['updater'][0]['amt']}}"></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center"><input type="submit" name="update" value="UPDATE" class="btn btn-primary"></td>
+		</tr>
+	</table>
+
+                     
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+		{% else %}
+
+
+	
+		<h1>MANAGE VEHICLE</h1>
+
+		<table class="table" style="width:  700px" rules="none">
+		<tr style="border-bottom-style: hidden">
+			<th>VEHICLE</th>
+			<td><input type="text" name="vehicle"  class="form-control"></td>
+		</tr>
+		<tr>
+			<th style="border-bottom-style: hidden">VEHICLE NUMBER</th>
+			<td><input type="text" name="vno"  class="form-control" pattern="^[A-Z]{2}[ -][0-9]{1,2}(?: [A-Z])?(?: [A-Z]*)? [0-9]{4}$"></td>
+		</tr>
+		<tr style="border-bottom-style: hidden">
+			<th>IMAGE</th>
+			<td><input type="file" name="img"  class="form-control"></td>
+		</tr>
+		<tr style="border-bottom-style: hidden">
+			<th>AMOUNT</th>
+			<td><input type="text" name="amt"  class="form-control"></td>
+		</tr>
+		
+		<tr>
+			<td colspan="2" align="center"><input type="submit" name="submit" value="ADD" class="btn btn-info"></td>
+		</tr>
+
+
+		</table>
+
+
+		
+                     
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	{% if data['vehicle'] %}
+		<h1 align="center">VEHICLES ADDED IN OUR SYSTEM</h1>
+		<table class="table" width="600px" style="color: black;text-align: center;">
+			<tr>
+				<th>SL.NO</th>
+				<th>VEHICLE</th>
+				<th>VEHICE NUMBER</th>
+				<th>IMGAE</th>
+				<th>AMOUNT</th>
+				<th>UPDATE</th>
+				<th>ACTIVATE/DEACTIVATE</th>
+				
+			</tr>
+			{% for row in data['vehicle'] %}
+			<tr>
+				<td>{{loop.index}}</td>
+				<td>{{ row['vehiclename'] }}</td>
+				<td>{{row['vno']}}</td>
+				<td><img src="/{{ row['image'] }}" style="height: 100px;width: 100px"></td>
+				<td>{{row['amt']}}</td>
+				<td><a href="?action=update&id={{ row['vehicle_id'] }}" class="btn btn-warning">UPDATE</a></td>
+				{% if row['vstatus']=='active' %}
+				<td><a href="?action=inactive&id={{ row['vehicle_id'] }}" class="btn btn-warning">DEACTIVE</a></td>
+				{% else %}
+				<td><a href="?action=active&id={{ row['vehicle_id'] }}" class="btn btn-danger" >ACTIVATE</a></td>
+				{% endif %}
+			</tr>
+			{% endfor%}
+		</table>
+		{% else %}
+		<h2>NO VEHICLES ADDED IN OUR SYSTEM</h2>
+		{% endif %}
+		{% endif %}
+	</form>
+</center>
+{% include 'footer.html' %}

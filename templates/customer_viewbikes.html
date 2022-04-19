@@ -1,0 +1,68 @@
+{% include 'customerheader.html' %}
+
+<header id="fh5co-header" class="fh5co-cover" role="banner" style="background-image:url(/static/BIKE.jpg); background-attachment: fixed;height: auto" data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 text-center" style="height: 20250px0px">
+					<div class="display-t" style="height: 250px">
+						<div class="display-tc animate-box" data-animate-effect="fadeIn" style="height: 200px">
+
+	
+                        
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	<center>
+		<div style="color: black">
+{% if data['vid'] %}
+	<form method="post">
+		<h1>BOOK FOR DATE</h1>
+		<table class="table" >
+			<tr>
+				<th>DATE</th>
+				<td><input type="date" name="date" style="width: 600px;" class="form-control" required="" min="{{data['today']}}"></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><input type="submit" name="submit" value="BOOK"></td>
+			</tr>
+		</table>
+	</form>
+{% elif data['vehicle'] %}
+		<h1>CHOOSE VEHICLE BOOK FOR {{data['duration']}} DAYS</h1>
+		<table class="table" style="text-align: center;">
+			<tr>
+				<th>SL.NO</th>
+				<th>VEHICLE</th>
+				<th>VEHICLE NUMBER</th>
+				<th>IMGAE</th>
+				<th>AMOUNT</th>
+				 
+			</tr>
+			{% for row in data['vehicle'] %}
+			<tr>
+				<td>{{loop.index}}</td>
+				<td>{{ row['vehiclename'] }}</td>
+				<td>{{row['vno']}}</td>
+				<td><a href="/{{ row['image'] }}"><img src="/{{ row['image'] }}" style="height: 50px;width: 50px"></a></td>
+				<td>{{row['amt']}}</td>
+				{% if row['vstatus']=="active" %}
+				<td><a href="?action=book&vid={{ row['vehicle_id'] }}&id={{data['id']}}&duration={{data['duration']}}" class="btn btn-warning">BOOK</a></td>
+				{%else%}
+				<td>{{row['vstatus']}}</td>
+				{% endif %}
+				<!-- {% if row['status']=="paid" %}
+				
+				{% endif %} -->
+			</tr>
+			{% endfor%}
+		</table>
+		{% else %}
+		<h2>NO VEHICLES ADDED IN OUR SYSTEM</h2>
+		{% endif %}
+</div>
+	</center>
+{% include 'footer.html' %}

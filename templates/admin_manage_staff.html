@@ -1,0 +1,146 @@
+{% include 'adminheader.html' %}
+
+<!-- <style type="text/css">
+	td{
+		text-align: center !important;
+	}
+</style> -->
+ <header id="fh5co-header" class="fh5co-cover" role="banner" style="background-image:url(/static/bike2.jpg); background-attachment: fixed;height: auto" data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 text-center">
+					<div class="display-t">
+						<div class="display-tc animate-box" data-animate-effect="fadeIn">
+<center>
+	<form method="post">
+		{% if data['updater'] %}
+		<h1>UPDATE STAFF DETAILS</h1>
+
+
+
+		<table class="table" style="width:  700px">
+		<tr>
+			<th>FIRST NAME</th>
+			<td><input type="text" name="fname"  class="form-control" value="{{data['updater'][0]['firstname']}}" pattern="[A-Za-z]+$"></td>
+		</tr>
+		<tr>
+			<th>LAST NAME</th>
+			<td><input type="text" name="lname"  class="form-control" value="{{data['updater'][0]['lastname']}}">
+			
+		</tr>
+		<tr>
+			<th>PLACE</th>
+			<td><input type="text" name="place"  class="form-control" value="{{data['updater'][0]['place']}}"></td>
+		</tr>
+		<tr>
+			<th>PHONE</th>
+			<td><input type="text" name="phone"  class="form-control" value="{{data['updater'][0]['phone']}}" pattern="[7-9]{1}[0-9]{9}"></td>
+		</tr>
+		<tr>
+			<th>EMAIL</th>
+			<td>
+			<input type="email" name="email"  class="form-control" value="{{data['updater'][0]['email']}}"></td>
+		</tr>
+		
+		<tr>
+			<td colspan="2" align="center"><input type="submit" name="update" value="UPDATE" class="btn btn-primary"></td>
+		</tr>
+	</table>
+
+
+
+		{% else %}
+
+		<h1>MANAGE STAFF</h1>
+
+		<table class="table" style="width:  700px" rules="none">
+		<tr style="border-bottom-style: hidden">
+			<th>FIRST NAME</th>
+			<td><input type="text" name="fname" required class="form-control" pattern="[A-Za-z]+$"></td>
+		</tr>
+		<tr style="border-bottom-style: hidden">
+			<th>LAST NAME</th>
+			<td><input type="text" name="lname" required class="form-control"></td>
+		</tr>
+		<tr style="border-bottom-style: hidden">
+			<th>PLACE</th>
+			<td><input type="text" name="place" required class="form-control"></td>
+		</tr>
+		<tr style="border-bottom-style: hidden">
+			<th>PHONE</th>
+			<td><input type="text" name="phone" required class="form-control" pattern="[7-9]{1}[0-9]{9}"></td>
+		</tr>
+		<tr style="border-bottom-style: hidden">
+			<th>EMAIL</th>
+			<td>
+			<input type="email" name="email" required class="form-control"></td>
+		</tr>
+		
+		<tr style="border-bottom-style: hidden">
+			<th>USER NAME</th>
+			<td><input type="text" name="uname" required minlength="5" placeholder="User Name Must Be Atleast 5 Charecter " class="form-control" ></td>
+		</tr>
+		<tr style="border-bottom-style: hidden">
+			<th>PASSWORD</th>
+			<td><input type="password" name="password" required minlength="8" placeholder="Password Must Be Atleast 8 Charecter" class="form-control"></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center"><input type="submit" name="submit" value="register" class="btn btn-primary"></td>
+		</tr>
+	</table>
+
+		{% endif %}
+	</form>
+</center>
+		</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+<center>
+<div style="color: black">
+		{% if data['staff'] %}
+		<h1>STAFFS ADDED IN OUR SYSTEM</h1>
+		<table class="table" style="width: 1000px">
+			<tr>
+				<th>STAFF NAME</th>
+				<th>PLACE</th>
+				<th>PHONE</th>
+				<th>EMAIL</th>
+				<th>STATUS</th>
+				<th>UPDATE</th>
+				<th>ACTIVATE/DEACTIVATE</th>
+				
+			</tr>
+			{% for row in data['staff'] %}
+			<tr>
+				<td>{{ row['firstname'] }} {{ row['lastname'] }}</td>
+				<td>{{row ['place']}}</td>
+				<td>{{ row['phone']}}</td>
+				<td>{{row['email']}}</td>
+				{% if row['usertype']=='staff' %}
+				<td>ACTIVE</td>
+				{% else %}
+				<td>INACTIVE</td>
+				{% endif %}
+				
+				
+				<td><a href="?action=update&id={{ row['staff_id'] }}" class="btn btn-warning">UPDATE</a></td>
+				{% if row['usertype']=='staff' %}
+				<td><a href="?action=inactive&id={{ row['username'] }}" class="btn btn-danger" >DEACTIVATE</a></td>
+				{% else %}
+				<td><a href="?action=active&id={{ row['username'] }}" class="btn btn-danger" >ACTIVATE</a></td>
+				{% endif %}
+				
+			</tr>
+			{% endfor%}
+		</table>
+		{% else %}
+		<h2>NO STAFFS ADDED IN OUR SYSTEM</h2>
+		{% endif %}
+</div>
+</center>
+{% include 'footer.html' %}

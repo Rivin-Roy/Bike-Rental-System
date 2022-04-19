@@ -1,0 +1,48 @@
+{% include 'customerheader.html' %}
+<header id="fh5co-header" class="fh5co-cover" role="banner" style="background-image:url(/static/BIKE.jpg); background-attachment: fixed;height: 200px" data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 text-center" style="height: 80px">
+					<div class="display-t" style="height: 80px">
+						<div class="display-tc animate-box" data-animate-effect="fadeIn" style="height: 80px">
+
+
+                        
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+<center>
+<div style="color: black">
+	{% if data['timeslot'] %}
+		<h1>TIME SLOTS TO BOOKING</h1>
+		<table class="table" width="600px" rules="none">
+			<tr style="border-bottom-style: hidden">
+				<th>SL.NO</th>
+				<th>TIME DURATION</th>
+				<th>AMOUNT</th>
+				
+			</tr>
+			{% for row in data['timeslot'] %}
+			<tr style="border-bottom-style: hidden"> 
+				<td>{{loop.index}}</td>
+				<td>{{ row['duration'] }} DAY</td>
+				<td>{{ row['rate'] }}</td>
+				
+		
+				<td><a href="customer_viewbikes?id={{ row['slot_id'] }}&duration={{row['duration']}}" class="btn btn-danger" >VIEW BIKES AND BOOK</a></td>
+				
+			</tr>
+			{% endfor%}
+		</table>
+		{% else %}
+		<h2>NO SLOTS ADDED IN OUR SYSTEM</h2>
+		{% endif %}
+	
+<div>
+</center>
+{% include 'footer.html' %}

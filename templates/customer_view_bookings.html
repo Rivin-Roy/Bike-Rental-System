@@ -1,0 +1,130 @@
+{% include 'customerheader.html' %}
+
+<script> 
+		function printDiv() { 
+			var divContents = document.getElementById("div_print").innerHTML; 
+			var a = window.open('', '', 'height=500, width=500'); 
+			a.document.write(divContents); 
+			a.document.close(); 
+			a.print(); 
+		} 
+
+	</script> 
+
+<header id="fh5co-header" class="fh5co-cover" role="banner" style="background-image:url(/static/BIKE.jpg); background-attachment: fixed;height: auto" data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 text-center">
+					<div class="display-t">
+						<div class="display-tc animate-box" data-animate-effect="fadeIn">
+<center>
+
+	<form method="post">
+	{% if data['amt'] %}
+	<h1>PAY AND COMPLETE YOUR BOOKING</h1>
+		<table class="table" style="width: 600px">
+			<tr>
+				<th colspan="2" align="left">Payment Details</th>
+			</tr>
+			<tr>
+				<th align="left">CARD NUMBER</th>
+				<td colspan="2"><input type="text" name="cardno" placeholder="XXXX XXXX XXXX XXXX" class="form-control" pattern="[0-9]{16}"><td>
+			</tr>
+			<tr>
+				<th>EXP DATE</th>
+				<th align="center">CVV</th>
+			</tr>
+			<tr>
+				<td><input type="text" name="monthdate" class="form-control" placeholder="MM/YY" pattern="[0-9/]{5}"></td>
+				<td><input type="text" name="cv" placeholder="XXX" class="form-control" pattern="[0-9]{3}"></td>
+			</tr>
+			<tr>
+				<th>AMOUNT</th>
+				<td class="btn btn-primary" align="center">{{data['amt']}}</td>
+			<tr>
+				<td colspan="2" align="center"><input type="submit" name="pay" value="CONFIRM PAYMENT" class="btn btn-primary"></td>
+			</tr>
+		</table>
+</form>
+
+
+	<form method="post">
+
+	{% elif data['bookings']%}
+<div id="div_print" >
+	<h1>MY BOOKINGS</h1>
+	<div style="overflow: scroll;height: 500px;">
+	{% for row in data['bookings']%}
+	<table class="table" style="width: 600px;height: 20px" border="1">
+		<br>
+		<br>
+		<tr>
+			<td colspan="2" align="center"><img src="/{{row['image']}}" style="height: 100px;width: 100px"></td>
+			
+		</tr>
+		<tr>
+			
+			<td colspan="2" align="center">VEHICLE NUMBER : {{row['vno']}}</td>
+		
+		</tr>
+	
+		<tr>
+			<td>BIKE RATE</td>
+			<TD>{{row['amt']}}</TD>
+		</tr>
+		<tr>
+			<td>FOR {{row['duration']}} DAY</td>
+			<TD>{{row['rate']}}</TD>
+		</tr>
+		<tr>
+			<th>TOTAL</th>
+			<TD>{{row['rate']|int  + row['amt'] |int}}</TD>
+		</tr>
+		<tr>
+			<th>BOOKING STATUS</th>
+			<td>{{row['bstatus']}}</td>
+		</tr>
+		{% if row['bstatus']=='pending' %}
+		<tr>
+			<td colspan="2" align="center"><a href="?action=pay&boid={{row['booking_id']}}&vid={{row['vehicle_id']}}&amt={{row['rate']|int  + row['amt'] |int}}" class="btn btn-danger">PAY</a></td>
+		</tr>
+		{% endif %}
+		{% if row['bstatus']=='paid' %}
+		<tr>
+			<td colspan="2" align="center"><a href="customer_timeextend?boid={{row['booking_id']}}&vid={{row['vehicle_id']}}" class="btn btn-danger">EXTEND TIME</a></td>
+		</tr>
+		{% endif %}
+		{% if row['bstatus']=='extended and paid' %}
+		
+			<td>{{row['extend']}} EXETEND ({{row['extend'] |int* 500}} ) PAID</td>
+		
+		{% endif %} 
+
+{% if row['bstatus']=='paid' or row['bstatus']=="extended and paid" %}
+		<tr>
+			<td colspan="2" align="center"><a href="?action=return&boid={{row['booking_id']}}&vid={{row['vehicle_id']}}&amt={{row['rate']}}" class="btn btn-info">RETURN</a></td>
+		</tr>
+		{%else%}
+		<tr>
+			<TD>{{row['bstatus']}}</TD>
+		</tr>		{% endif %}		
+
+			
+	
+	</table>
+	{% endfor %}
+</div>
+</div>
+<!-- <a href="print" class="btn btn-info">PRINT</a> -->
+</form>
+{% endif %}
+
+				</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+{% include 'footer.html' %}

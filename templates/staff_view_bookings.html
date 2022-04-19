@@ -1,0 +1,106 @@
+{% include 'staffheader.html' %}
+<script> 
+	function printDiv() { 
+		var divContents = document.getElementById("div_print").innerHTML; 
+		var a = window.open('', '', 'height=500, width=500'); 
+		a.document.write(divContents); 
+		a.document.close(); 
+		a.print(); 
+	} 
+</script> 
+
+ <header id="fh5co-header" class="fh5co-cover" role="banner" style="background-image:url(/static/bike2.jpg); background-attachment: fixed;height: 200px" data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 text-center">
+					<div class="display-t" style="height: 80px">
+						<div class="display-tc animate-box" data-animate-effect="fadeIn" style="height: 80px">
+
+		</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+<center>
+<br><br><br><br>
+{% if data['orders'] %}	
+<div style="color: black;margin-top: 2em" >
+
+ 
+<div style="margin-left: -6em;margin-top: 2em" >
+
+
+
+<form method="post" style="margin-top: 2em">
+		<table class="table"  style="width: 1000px">
+			<tr>
+				<th>DURATION</th>
+				<td><input type="text" name="nod" class="form-control"></td>
+
+				<th>FROM DATE</th>
+				<td><input type="date" name="from_date" class="form-control"></td>
+				<th>TO DATE</th>
+				<td><input type="date" name="to_date" class="form-control"></td>
+				<td>	
+				<input type="submit" name="submit" value="search" class="btn btn-info"></td>
+			</tr>
+		</table>
+
+	</form>
+
+
+<h1>VIEW BOOKINGS</h1>
+		<table class="table" style="width: 1000px;background-color: white;color: black;text-align: center;" >
+		<tr>
+			<th>REFERENCE ID OF PURCHASE</th>
+            <th>CUSTOMER</th>
+        <!--     <th>BOOKED DATE</th> -->
+            <th>BOOKED FOR DATE</th>
+            <th>DURATION</th>
+            <th>BIKE</th>
+            <th>BIKE NUMBER</th>
+			<th>AMOUNT PAID</th>
+			<th>STATUS</th>
+			<th>EXTENDED STATUS</th>
+			
+		</tr> 
+		{% for row in data['orders'] %}
+        <tr>
+            <td>{{ row['booking_id']}}</td>
+              <td>{{row['firstname']}}</td>
+              <td>{{row['bdate']}}</td>
+             <!--  <td>{{row['bfordate']}}</td> -->
+            <td>{{row['duration']}} DAY</td>
+            <td><img src="/{{row['image']}}" style="height: 10;width: 100px"></td>
+             <td>{{row['vno']}}</td>
+            <td>{{ row['rate'] |int + row['amt'] |int}}</td>
+            <td>{{row['bstatus']}}</td> 
+          {% if row['bstatus']=='return-pending' %} 
+			<td><a class="btn btn-info" href="?action=confirm&boid={{row['booking_id']}}&vid={{row['vehicle_id']}}" >RETURN CONFIRM</a></td>
+			{% endif %}
+        {% if row['bstatus']=='extended and paid' %}
+		
+			<td>{{row['extend']}} EXETEND ({{row['extend'] |int* 500}} ) PAID</td>
+		
+		{% endif %}  
+            
+        </tr>
+        {% endfor %}
+		
+	</table>
+	</div>
+</div>
+	 <a href="staff_print_bookings" class="btn btn-primary">PRINT</a>
+	{%else %}
+	
+	<h1>NO BOOKING HISTORY</h1>
+	
+
+		
+	{% endif %}
+
+</center>
+{% include 'footer.html' %}

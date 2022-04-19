@@ -1,0 +1,66 @@
+{% include 'adminheader.html' %}
+ <header id="fh5co-header" class="fh5co-cover" role="banner" style="background-image:url(/static/bike2.jpg); background-attachment: fixed;height: 200px" data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 text-center">
+					<div class="display-t" style="height: 80px">
+						<div class="display-tc animate-box" data-animate-effect="fadeIn" style="height: 80px">
+
+		</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+<center>
+	<div style="color: black">
+	<form method="post">
+		<h1>VIEW CUSTOMERS</h1>
+		<table class="table" style="width: 600px">
+			<tr>
+				<th>FIRST NAME</th>
+				<th>LAST NAME</th>
+				<th>PLACE</th>
+				<th>DISTRICT</th>
+				<th>STREET</th>
+				<th>PHONE</th>
+				<th>EMAIL</th>
+				<th>GENDER</th>
+				<TH>STATUS</TH>
+				<th>ACTIVATE/DEACTIVATE</th>
+		
+			</tr>
+			{% for row in data['users'] %}
+			<tr>
+				<td>{{row['firstname']}}</td>
+				<td>{{row['lastname']}}</td>
+				<td>{{row['place']}}</td>
+				<td>{{row['district']}}</td>
+				<td>{{row['street']}}</td>
+				<td>{{row['phone']}}</td>
+				<td>{{row['email']}}</td>
+				<td>{{row['gender']}}</td>
+				{% if row['usertype']=='user' %}
+				<td>ACTIVE</td>
+				{% else %}
+				<td>INACTIVE</td>
+				{% endif %}
+				
+
+				
+				{% if row['usertype']=='user' %}
+				<td><a href="?action=inactive&id={{ row['username'] }}" class="btn btn-danger" >DEACTIVATE</a></td>
+				{% else %}
+				<td><a href="?action=active&id={{ row['username'] }}" class="btn btn-danger" >ACTIVATE</a></td>
+				{% endif %}
+
+			</tr>
+			{% endfor %}
+		</table>
+
+	</form>
+</div>
+</center>
+
+{% include 'footer.html' %}

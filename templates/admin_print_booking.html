@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<script> 
+		function printDiv() { 
+			var divContents = document.getElementById("div_print").innerHTML; 
+			var a = window.open('', '', 'height=500, width=500'); 
+			a.document.write(divContents); 
+			a.document.close(); 
+			a.print(); 
+		} 
+	</script> 
+<body onload="printDiv()">
+	<div id="div_print" >
+<center>
+
+	<h1 style="padding-top: 30px;font-size: 60px">Bookings </h1>
+<!-- 	<img style="width: 100px;height: 100px" src="/static/assets/img/img1.jpg">
+ --><p style="padding-top: 30px;font-size: 60px;font-style: italic;font-family: monospace;font-size: 20px;margin-left: 250px;margin-bottom: 20px" align="left">Email : bikerental@gmail.com&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date :{{data['today']}}</p>
+<p style="padding-top: 30px;font-size: 60px;font-style: italic;font-family: monospace;font-size: 20px;margin-left: 250px;margin-bottom: 20px" align="left">Phone : 8907689709&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Time :{{data['current_time']}}</p>
+<!-- <h3 align="right" style="margin-right: 250px"></h3>
+<h3 align="right" style="margin-right: 250px">Time :{{data['current_time']}}</h3> -->
+<table class="table" style="width: 1000px;color: black;font-style: italic;font-family: monospace;font-size: 20px" border="5">	
+		<table class="table" style="width: 800px;background-color: white;color: black" >
+		<tr>
+			<th>REFERENCE ID OF PURCHASE</th>
+            <th>CUSTOMER</th>
+        <!--     <th>BOOKED DATE</th> -->
+            <th>BOOKED FOR DATE</th>
+            <th>DURATION</th>
+            <th>BIKE</th>
+			<th>AMOUNT PAID</th>
+			<th>STATUS</th>
+			<th>EXTENDED STATUS</th>
+			
+		</tr>
+		{% for row in data['orders'] %}
+        <tr>
+            <td>{{ row['booking_id']}}</td>
+              <td>{{row['firstname']}}</td>
+              <td>{{row['bdate']}}</td>
+             <!--  <td>{{row['bfordate']}}</td> -->
+            <td>{{row['duration']}} DAY</td>
+            <td><img src="/{{row['image']}}" style="height: 100;width: 100px"></td>
+            <td>{{ row['rate'] |int + row['amt'] |int}}</td>
+            <td>{{row['bstatus']}}</td> 
+        {% if row['bstatus']=='extended and paid' %}
+		
+			<td>{{row['extend']}} EXETEND ({{row['extend'] |int* 500}} ) PAID</td>
+		
+		{% endif %}  
+            
+        </tr>
+        {% endfor %}
+		
+	</table>
+</center>
+</body>
+</html>
+
+
+ 
+

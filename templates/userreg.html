@@ -1,0 +1,72 @@
+{% include 'publicheader.html' %}
+ <header id="fh5co-header" class="fh5co-cover" role="banner" style="background-image:url(/static/1.jpg); background-attachment: fixed;height: auto" data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 text-center">
+					<div class="display-t">
+						<div class="display-tc animate-box" data-animate-effect="fadeIn">
+<form method="post">
+<center>
+<h1>CUSTOMER REGISTRATION</h1>
+	<table class="table" style="width:  700px" rules="none">
+		<tr style="border-bottom-style: hidden">
+			<th>FIRST NAME</th>
+			<td><input type="text" name="fname" required class="form-control" pattern="[A-Za-z]+$"></td>
+		</tr>
+		<tr style="border-bottom-style: hidden">
+			<th>LAST NAME</th>
+			<td><input type="text" name="lname" required class="form-control"></td>
+		</tr>
+		
+		<tr style="border-bottom-style: hidden">
+			<th>GENDER</th>
+			<TD>Male<input type="radio" name="gen" value="Male" required>
+				Female<input type="radio" name="gen" required value="Female"></TD>
+		</tr>
+		<tr style="border-bottom-style: hidden">
+			<th>DISTRICT</th>
+			<td><input type="text" name="dis" required class="form-control"></td>
+		</tr>
+		<tr style="border-bottom-style: hidden">
+			<th>PLACE</th>
+			<td><input type="text" name="place" required class="form-control"></td>
+		</tr>
+
+		<tr style="border-bottom-style: hidden">
+			<th>STREET</th>
+			<td><input type="text" name="street" required class="form-control"></td>
+		</tr>
+		<tr style="border-bottom-style: hidden">
+			<th>PHONE</th>
+			<td><input type="text" name="phone" pattern="[7-9]{1}[0-9]{9}" required class="form-control"></td>
+		</tr>
+		<tr style="border-bottom-style: hidden">
+			<th>EMAIL</th>
+			<td>
+			<input type="email" name="email" required class="form-control"></td>
+		</tr>
+		
+		<tr style="border-bottom-style: hidden">
+			<th>USER NAME</th>
+			<td><input type="text" name="uname" required minlength="5" placeholder="User Name Must Be Atleast 5 Charecter " class="form-control" ></td>
+		</tr>
+		<tr style="border-bottom-style: hidden">
+			<th>PASSWORD</th>
+			<td><input type="password" name="password" required minlength="8" placeholder="Password Must Be Atleast 8 Charecter" class="form-control"></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center"><input type="submit" name="submit" value="Register" class="btn btn-primary"></td>
+		</tr>
+	</table>
+</center>
+</form>
+		</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+
+{% include 'footer.html' %}

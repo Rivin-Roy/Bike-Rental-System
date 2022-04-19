@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+
+<body onload="printDiv()">
+
+	<script> 
+		function printDiv() { 
+			var divContents = document.getElementById("div_print").innerHTML; 
+			var a = window.open('', '', 'height=500, width=500'); 
+			a.document.write(divContents); 
+			a.document.close(); 
+			a.print(); 
+		} 
+	</script> 
+<center>
+<div id="div_print" >
+	<h1>VIEW BOOKINGS</h1>
+		<table class="table" style="width: 800px;background-color: white;color: black" border="1">
+		<tr>
+			<th>REFERENCE ID OF PURCHASE</th>
+            <th>CUSTOMER</th>
+            <th>DURATION</th>
+            <th>BIKE</th>
+			<th>AMOUNT PAID</th>
+			<th>STATUS</th>
+			
+		</tr>
+		{% for row in data['orders'] %}
+        <tr>
+            <td>{{ row['booking_id']}}</td>
+              <td>{{row['firstname']}}</td>
+            <td>{{row['duration']}} DAY</td>
+            <td><img src="/{{row['image']}}" style="height: 100;width: 100px"></td>
+            <td>{{ row['rate'] |int + row['amt'] |int}}</td>
+            <td>{{row['bstatus']}}</td> 
+        {% if row['bstatus']=='extended and paid' %}
+		
+			<td>{{row['extend']}} EXETEND ({{row['extend'] |int* 500}} ) PAID</td>
+		
+		{% endif %}  
+            
+        </tr>
+        {% endfor %}
+		</table>
+
+	
+	</div>
+	
+
+</div>
+</center>
+</form>
+
+</body>
+</html>

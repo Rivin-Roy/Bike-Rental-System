@@ -1,0 +1,84 @@
+{% include 'customerheader.html' %}
+<header id="fh5co-header" class="fh5co-cover" role="banner" style="background-image:url(/static/BIKE.jpg); background-attachment: fixed;height: auto" data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 text-center">
+					<div class="display-t">
+						<div class="display-tc animate-box" data-animate-effect="fadeIn">
+<center>
+
+
+<script type="text/javascript">
+	
+	function change(){
+		
+			var n=document.getElementById("day").value;
+			document.getElementById("amt").value=parseInt(n)*500;
+
+		}
+
+</script>
+	<form method="post">
+	{% if data['amt'] %}
+	<h1>PAY AND COMPLETE YOUR BOOKING</h1>
+		<table class="table" style="width: 600px">
+			<tr>
+				<th colspan="2" align="left">Payment Details</th>
+			</tr>
+			<tr>
+				<th align="left">CARD NUMBER</th>
+				<td colspan="2"><input type="text" name="cardno" class="form-control"><td>
+			</tr>
+			<tr>
+				<th>EXP DATE</th>
+				<th align="center">CV</th>
+			</tr>
+			<tr>
+				<td><input type="text" name="monthdate" class="form-control"></td>
+				<td><input type="text" name="cv" class="form-control"></td>
+			</tr>
+			<tr>
+				<th>AMOUNT</th>
+				<td class="btn btn-primary" align="center">{{data['amt']}}</td>
+			<tr>
+				<td colspan="2" align="center"><input type="submit" name="pay" value="CONFIRM PAYMENT" class="btn btn-primary"></td>
+			</tr>
+		</table>
+</form>
+
+
+	<form method="post">
+
+{% else %}
+	<h1>DAY EXTEND</h1>
+	<table class="table">
+		<tr>
+			<th>NO.DAY</th>
+			<td><input type="number" name="day" onchange="change()" id="day" min="1"></td>
+		</tr>
+		<tr>
+			<th>AMOUNT</th>
+			<td><input type="text" name="amt" readonly id="amt"></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center"><input type="submit" name="submit"></td>
+		</tr>
+	</table>
+	
+		
+		
+
+
+</div>
+</form>
+{% endif %}
+
+				</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+{% include 'footer.html' %}
